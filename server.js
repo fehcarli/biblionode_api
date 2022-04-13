@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const routes = require('./routes');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || '4000';
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
