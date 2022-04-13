@@ -25,5 +25,8 @@ module.exports = {
         timestamps: false,
         underscored: true,
       },
+      ssl: {
+        rejectUnauthorized: false,
+      },
     },
   };
