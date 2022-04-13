@@ -19,14 +19,14 @@ module.exports = {
       logging: false,
     },
     production: {
+      use_env_variable: 'DATABASE_URL',
       dialect: 'postgres',
-      use_env_variable: "DATABASE_URL",
-      define: {
-        timestamps: false,
-        underscored: true,
-      },
-      ssl: {
-        rejectUnauthorized: false,
+      protocol: 'postgres',
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
       },
     },
   };
