@@ -1,2 +1,2 @@
-build: npx sequelize-cli db:migrate
-web: npm run start
+build: npx sequelize db:migrate
+web: npm start
