@@ -1,8 +1,7 @@
+require('dotenv').config()
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const db = require("../models");
-const authConfig = require("../config/authConfig.json");
-const { user } = require("pg/lib/defaults");
 const Users = db.usuarios;
 const People = db.pessoas;
 const Op = db.Sequelize.Op;
@@ -48,7 +47,7 @@ exports.findById = async (req, res) => {
 };
 
 function generateToken(params = {}){
-    return jwt.sign(params, authConfig.secret,{
+    return jwt.sign(params, process.env.SECRET,{
         expiresIn: 86400,
     }) 
 }

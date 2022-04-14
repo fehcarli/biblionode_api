@@ -1,0 +1,11 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title": "Biblionode",
+        "description": "API RESTful para automação de Bibliotecas",
+        "contact": {
+            "email":"lipecarli@gmail.com"
+        },
+        "version": "1.0.0"
+    }
+}

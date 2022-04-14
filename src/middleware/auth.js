@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
-const authConfig = require('../config/authConfig.json')
+require('dotenv').config()
 
 module.exports = {
     tokenSession: async (req, res, next)=>{
@@ -29,7 +29,7 @@ module.exports = {
         }
 
         try {
-            const decode = await promisify(jwt.verify)(token, authConfig.secret);
+            const decode = await promisify(jwt.verify)(token, process.env.SECRET);
             req.userId = decode.id;
             return next();
         } catch (err) {
