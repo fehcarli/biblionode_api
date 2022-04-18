@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const db = require("../models");
 const Users = db.usuarios;
 const People = db.pessoas;
-const Op = db.Sequelize.Op;
 
 exports.findAll = async (req, res) => {
     await Users.findAll({
@@ -66,7 +65,7 @@ exports.createUser = async (req, res) => {
         Users.create(USER_MODEL).then(data => {
             res.status(200).send({
                 data, 
-                token: generateToken({id: user.id})
+                token: generateToken({id: Users.id})
             });
         }).catch(err => {
             res.status(500).send({
