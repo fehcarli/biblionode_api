@@ -5,6 +5,7 @@ const UserController = require('./src/controllers/UserController');
 const PersonController = require('./src/controllers/PersonController');
 const GenreController = require('./src/controllers/GenreController');
 const BookController = require('./src/controllers/BookController');
+const BookingController = require('./src/controllers/BookingController')
 
 const { tokenSession } = require('./src/middleware/auth');
 const {createUser} = require('./src/middleware/validator');
@@ -21,31 +22,35 @@ router
 
 //rotas de usuario
 router
-    .get('/api/users', tokenSession, UserController.findAll)
-    .get('/api/users/:id', tokenSession, UserController.findById)
-    .post('/api/users', createUser.validateEmail, createUser.handler, UserController.createUser)
-    .post('/api/login', UserController.login)
-    .put('/api/users/:id', tokenSession, UserController.updateById)    
-    .get('/api/logout', tokenSession, UserController.logout);
+    .get('/users', tokenSession, UserController.findAll)
+    .get('/users/:id', tokenSession, UserController.findById)
+    .post('/users', createUser.validateEmail, createUser.handler, UserController.createUser)
+    .post('/login', UserController.login)
+    .put('/users/:id', tokenSession, UserController.updateById)    
+    .get('/logout', tokenSession, UserController.logout);
 
 //rotas para dados pessoais de usuarios
 router
-    .get('/api/users/:user_id/person', tokenSession, PersonController.findById)
-    .post('/api/users/:user_id/person', tokenSession, PersonController.createPersonalData)
-    .put('/api/users/:user_id/person', tokenSession, PersonController.updateById);
+    .get('/users/:user_id/person', tokenSession, PersonController.findById)
+    .post('/users/:user_id/person', tokenSession, PersonController.createPersonalData)
+    .put('/users/:user_id/person', tokenSession, PersonController.updateById);
     
-//rotas de gêneros litrerários
+//rotas de gêneros literários
 router
-    .get('/api/genres', tokenSession, GenreController.findAll)
-    .get('/api/genres/:id', tokenSession, GenreController.findById)
-    .post('/api/genres', tokenSession, GenreController.createGenre)
-    .put('/api/genres/:id', tokenSession, GenreController.updateById);
+    .get('/genres', tokenSession, GenreController.findAll)
+    .get('/genres/:id', tokenSession, GenreController.findById)
+    .post('/genres', tokenSession, GenreController.createGenre)
+    .put('/genres/:id', tokenSession, GenreController.updateById);
 
 //rotas de livros
 router
-    .get('/api/books', tokenSession, BookController.findAll)
-    .get('/api/books/:id', tokenSession, BookController.findById)
-    .post('/api/books', tokenSession, BookController.createBook)
-    .put('/api/books/:id', tokenSession, BookController.updateById);
+    .get('/books', tokenSession, BookController.findAll)
+    .get('/books/:id', tokenSession, BookController.findById)
+    .post('/books', tokenSession, BookController.createBook)
+    .put('/books/:id', tokenSession, BookController.updateById);
+
+//rotas de reservas e emprestimos a serem definidas
+router
+    .get('/bookings')
 
 module.exports = router;

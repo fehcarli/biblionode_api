@@ -54,12 +54,13 @@ function generateToken(params = {}){
 exports.createUser = async (req, res) => {
     await bcrypt.hash(req.body.password, 10).then(hash => {
         const encrypted = hash;
-        
+
         const USER_MODEL = {
             nome: req.body.nome,
             sobrenome: req.body.sobrenome,
             email: req.body.email,
             password: encrypted,
+            role_id: role
         };
 
         Users.create(USER_MODEL).then(data => {
