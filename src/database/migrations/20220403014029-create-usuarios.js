@@ -18,7 +18,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       password: {
+        type: Sequelize.STRING,
+      },
+      passwordResetToken: {
         type: Sequelize.STRING
+      },
+      passwordResetExpires: {
+        type: Sequelize.DATE
       },
       role_id: {
         type: Sequelize.INTEGER,

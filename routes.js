@@ -26,6 +26,8 @@ router
     .get('/users/:id', tokenSession, UserController.findById)
     .post('/users', createUser.validateEmail, createUser.handler, UserController.createUser)
     .post('/login', UserController.login)
+    .post('/forgot-password', UserController.forgotPassword)
+    .post('/reset-password', UserController.resetPassword)
     .put('/users/:id', tokenSession, UserController.updateById)    
     .get('/logout', tokenSession, UserController.logout);
 

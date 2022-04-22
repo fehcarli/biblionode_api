@@ -1,9 +1,12 @@
 require('dotenv').config()
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const db = require("../models");
+const mailer = require('../services/mailer')
 const Users = db.usuarios;
 const People = db.pessoas;
+const Op = db.Sequelize.Op;
 
 exports.findAll = async (req, res) => {
     await Users.findAll({
@@ -60,7 +63,7 @@ exports.createUser = async (req, res) => {
             sobrenome: req.body.sobrenome,
             email: req.body.email,
             password: encrypted,
-            role_id: role
+            role_id: 2
         };
 
         Users.create(USER_MODEL).then(data => {
@@ -72,6 +75,32 @@ exports.createUser = async (req, res) => {
             res.status(500).send({
                 message:
                     err.message || "Algum erro ocorreu ao cadastrar o Usuário."
+            });
+        });  
+    });
+}
+
+exports.createUserLibrarian = async (req, res) => {
+    await bcrypt.hash(req.body.password, 10).then(hash => {
+        const encrypted = hash;
+
+        const LIBRARIAN_MODEL = {
+            nome: req.body.nome,
+            sobrenome: req.body.sobrenome,
+            email: req.body.email,
+            password: encrypted,
+            role_id: 3
+        };
+
+        Users.create(LIBRARIAN_MODEL).then(data => {
+            res.status(200).send({
+                data, 
+                token: generateToken({id: Users.id})
+            });
+        }).catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Algum erro ocorreu ao cadastrar o Bibliotecário."
             });
         });  
     });
@@ -102,6 +131,92 @@ exports.login = async (req, res) => {
     });
 }
 
+exports.forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try{
+        const user = await Users.findOne({
+            where: {
+                email: email
+            }
+        });
+        if (!user) {
+            return res.status(400).send({
+                error: 'Usuário não encontrado na base de dados'
+            })
+        };
+        const token = crypto.randomBytes(20).toString('hex');
+        const expiredDate = new Date();
+        expiredDate.setHours(expiredDate.getHours() + 1);
+
+        await user.update({ 
+            passwordResetToken: token,
+            passwordResetExpires: expiredDate
+        })
+
+        mailer.sendMail({
+            to: email,
+            from: 'reset-mail@biblionode.com.br',
+            subject: 'Reset de Senha',
+            template: 'forgot_password',
+            context: { token }
+        }, (err) => {
+            if (err) {
+                console.log(err)
+                return res.status(400).send({ error: 'Não pode enviar o token'})
+            }
+            return res.send();
+        });
+    } catch(err) {
+        res.status(400).send({
+            message:
+                err.message || "Algum erro ocorreu ao recuperar a senha, tente novamente."
+        });
+    }
+}
+
+exports.resetPassword = async (req, res)=> {
+    const {token, email, password} = req.body;
+
+    try {
+        const user = await Users.findOne({
+            where: {
+                email: email
+            },
+            attributes: ['id', 'passwordResetToken', 'passwordResetExpires']
+        });
+        if (!user) {
+            return res.status(400).send({
+                error: 'Usuário não encontrado na base de dados'
+            })
+        };
+        if(token !== user.passwordResetToken) {
+            return res.status(400).send({ 
+                error: 'Token Inválido'
+            })
+        };
+        const now = new Date();
+        if(now > user.passwordResetExpires) {
+            return res.status(400).send({ 
+                error: 'Token com periodo expirado'
+            })
+        };
+        await bcrypt.hash(password, 10).then(hash => {
+            const encrypted = hash;
+            const newPassword = {
+                password: encrypted
+            }
+            user.update(user.password = newPassword);
+        });
+        return res.send();
+    } catch (err) {
+        res.status(400).send({
+            message:
+                err.message || "Algum erro ocorreu ao resetar a senha, tente novamente."
+        });
+    }
+}
+
 exports.updateById = async (req, res) =>{
     await Users.update(req.body, {
         where: { id: req.params.id }
@@ -120,4 +235,8 @@ exports.updateById = async (req, res) =>{
 
 exports.logout = async(req, res) => {
     
+}
+
+exports.inactiveUser = async(req, res) => {
+
 }
