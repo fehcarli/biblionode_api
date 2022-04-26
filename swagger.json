@@ -7,5 +7,157 @@
             "email":"lipecarli@gmail.com"
         },
         "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://biblionode.herokuapp.com/api",
+            "description": "Backend de Aplicação"
+        }
+    ],
+    "paths": {
+        "/books":{
+            "post": {
+                "summary": "Cadastro de Livros",
+                "description": "Está rota é responsavel por cadastrar novos livros",
+                "tags": ["Books"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Books"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "400": {
+                        "description": "Livro já existe"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Books"
+                                }
+                            }
+                        }
+                    }         
+                }
+            }
+        },
+        "/books/":{
+            "get": {
+                "summary": "Lista de Livros",
+                "description": "Está rota é responsavel por todos os livros cadastrados",
+                "tags": ["Books"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/:id":{
+            "get": {
+                "summary": "Acessa um Único Livro",
+                "description": "Está rota é responsavel por buscar um livro individualmente",
+                "tags": ["Books"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/book/{:id}":{
+            "put": {
+                "summary": "Atualiza Livro",
+                "description": "Está rota é responsavel por atualizar os dados de um livro",
+                "tags": ["Books"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/book/{id}":{
+            "delete": {
+                "summary": "Excluir Livro",
+                "description": "Está rota é responsavel por remover um livro da base de dados",
+                "tags": ["Books"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    },
+    "components":{
+        "schemas": {
+            "Books":{
+                "type": "object",
+                "properties":{
+                    "titulo": {
+                        "type": "string"
+                    },
+                    "autor": {
+                        "type": "string"
+                    },
+                    "codLivro": {
+                        "type": "string"
+                    },
+                    "isbn": {
+                        "type": "string"
+                    },
+                    "numPaginas": {
+                        "type": "integer"
+                    },
+                    "editora": {
+                        "type": "string"
+                    },
+                    "edicao": {
+                        "type": "string"
+                    },
+                    "ano": {
+                        "type": "Date",
+                        "example": "07-09-1995",
+                        "format": "date-time"
+                    }
+                }
+            }
+        }
+            
     }
 }

@@ -6,7 +6,6 @@ const db = require("../models");
 const mailer = require('../services/mailer')
 const Users = db.usuarios;
 const People = db.pessoas;
-const Op = db.Sequelize.Op;
 
 exports.findAll = async (req, res) => {
     await Users.findAll({
