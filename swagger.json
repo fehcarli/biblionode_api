@@ -121,8 +121,269 @@
                     }
                 }
             }
+        },
+        "/genres":{
+            "post": {
+                "summary": "Cadastro de Gêneros Literários",
+                "description": "Está rota é responsavel por cadastrar novos Gêneros Literários",
+                "tags": ["Genres"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Genres"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "400": {
+                        "description": "Gênero Literário já existe"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+    
+                                }
+                            }
+                        }
+                    }         
+                }
+            }
+        },
+        "/genres/":{
+            "get": {
+                "summary": "Lista Gêneros Literários",
+                "description": "Está rota é responsavel por listar todos os Gêneros Literários",
+                "tags": ["Genres"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/genres/:id":{
+            "get": {
+                "summary": "Acessa um Gênero Literário",
+                "description": "Está rota é responsavel por buscar um Gênero Literário",
+                "tags": ["Genres"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/genre/{:id}":{
+            "put": {
+                "summary": "Atualiza Genêro Literário",
+                "description": "Está rota é responsavel por atualizar os dados de um Gênero Literário",
+                "tags": ["Genres"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/genre/{id}":{
+            "delete": {
+                "summary": "Excluir Gênero Literário",
+                "description": "Está rota é responsavel por remover um Gênero Literário da base de dados",
+                "tags": ["Genres"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users":{
+            "post": {
+                "summary": "Cadastro de Usuários",
+                "description": "Está rota é responsavel por cadastrar novos usuários no sistema",
+                "tags": ["Users"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Users"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Usuário já existe"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    }         
+                }
+            }
+        },
+        "/users/":{
+            "get": {
+                "summary": "Lista de Usuários",
+                "description": "Está rota é responsavel por todos os livros cadastrados",
+                "tags": ["Users"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:id":{
+            "get": {
+                "summary": "Acessa um dados de usuário",
+                "description": "Está rota é responsavel por buscar um usuário individualmente",
+                "tags": ["Users"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{:id}":{
+            "put": {
+                "summary": "Atualiza dados de Usuário",
+                "description": "Está rota é responsavel por atualizar os dados de um usuário",
+                "tags": ["Users"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:id/person":{
+            "post": {
+                "summary": "Cadastra os Dados Pessoais do Usuário",
+                "description": "Está rota é responsavel por cadastrar os dados de pessoais para um usuário no sistema",
+                "tags": ["Person"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "400": {
+                        "description": "Usuário não existe"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    
+                                }
+                            }
+                        }
+                    }         
+                }
+            }
+        },
+        "/users/:id/person/":{
+            "get": {
+                "summary": "Acessa os Dados Pessoais do Usuário",
+                "description": "Está rota é responsavel por buscar dados pessoais de um usuário",
+                "tags": ["Person"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{:id}/person":{
+            "put": {
+                "summary": "Atualiza dados pessoais do Usuário",
+                "description": "Está rota é responsavel por atualizar os dados de um usuário",
+                "tags": ["Person"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties":{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        
     },
     "components":{
         "schemas": {
@@ -156,8 +417,55 @@
                         "format": "date-time"
                     }
                 }
-            }
-        }
-            
+            },
+            "Genres":{
+                "type": "object",
+                "properties":{
+                    "nomeGenero": {
+                        "type": "string"
+                    },
+                    "corEtiqueta": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Users":{
+                "type": "object",
+                "properties":{
+                    "nome": {
+                        "type": "string"
+                    },
+                    "sobrenome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Person":{
+                "type": "object",
+                "properties":{
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "endereco": {
+                        "type": "string"
+                    },
+                    "numeroEndereco": {
+                        "type": "string"
+                    },
+                    "matricula": {
+                        "type": "string"
+                    },
+                    "unidade": {
+                        "type": "integer"
+                    }
+                }
+            }    
+        }    
     }
 }
