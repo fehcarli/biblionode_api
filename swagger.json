@@ -260,6 +260,37 @@
                 }
             }
         },
+        "/login":{
+            "post": {
+                "summary": "Login de Usuários",
+                "description": "Está rota é responsavel por efetuaro login de usuários no sistema",
+                "tags": ["Users"],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Usuário já existe"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    
+                                }
+                            }
+                        }
+                    }         
+                }
+            }
+        },
         "/users/":{
             "get": {
                 "summary": "Lista de Usuários",
