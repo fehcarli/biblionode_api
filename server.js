@@ -12,7 +12,7 @@ const routes = require('./routes');
 const app = express();
 const port = process.env.PORT || '4000';
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use('/api/v1', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());

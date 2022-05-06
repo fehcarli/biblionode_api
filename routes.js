@@ -22,14 +22,15 @@ router
 
 //rotas de usuario
 router
+    .post('/users', createUser.validateEmail, createUser.handler, UserController.createUser)
     .get('/users', tokenSession, UserController.findAll)
     .get('/users/:id', tokenSession, UserController.findById)
-    .post('/users', createUser.validateEmail, createUser.handler, UserController.createUser)
+    .put('/users/:id', tokenSession, UserController.updateById)
     .post('/login', UserController.login)
+    .post('/logout', tokenSession, UserController.logout)
     .post('/forgot-password', UserController.forgotPassword)
     .post('/reset-password', UserController.resetPassword)
-    .put('/users/:id', tokenSession, UserController.updateById)    
-    .get('/logout', tokenSession, UserController.logout);
+    .delete('/users/inactive-user/:id', UserController.inactiveUser);
 
 //rotas para dados pessoais de usuarios
 router
@@ -46,10 +47,11 @@ router
 
 //rotas de livros
 router
+    .post('/books', tokenSession, BookController.createBook)
     .get('/books', tokenSession, BookController.findAll)
     .get('/books/:id', tokenSession, BookController.findById)
-    .post('/books', tokenSession, BookController.createBook)
-    .put('/books/:id', tokenSession, BookController.updateById);
+    .put('/books/:id', tokenSession, BookController.updateById)
+    .delete('/books/:id', tokenSession, BookController.deleteById);
 
 //rotas de reservas e emprestimos a serem definidas
 router
