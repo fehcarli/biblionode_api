@@ -35,6 +35,8 @@ db.generos = require("./generos")(sequelize, Sequelize);
 db.livros = require("./livros")(sequelize, Sequelize);
 db.reservas = require("./reservas")(sequelize, Sequelize);
 db.emprestimos = require("./emprestimos")(sequelize, Sequelize);
+db.userimages = require("./userimages")(sequelize, Sequelize);
+db.bookimages = require("./bookimages")(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {
