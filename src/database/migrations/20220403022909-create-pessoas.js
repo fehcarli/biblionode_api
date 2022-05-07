@@ -23,16 +23,6 @@ module.exports = {
       unidade: {
         type: Sequelize.STRING
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {         // User belongsTo Pessoas 1:1
-          model: 'Usuarios',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -40,6 +30,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE 
       }
     });
   },

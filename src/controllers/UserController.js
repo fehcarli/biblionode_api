@@ -79,39 +79,15 @@ exports.createUser = async (req, res) => {
     });
 }
 
-exports.createUserLibrarian = async (req, res) => {
-    await bcrypt.hash(req.body.password, 10).then(hash => {
-        const encrypted = hash;
-
-        const LIBRARIAN_MODEL = {
-            nome: req.body.nome,
-            sobrenome: req.body.sobrenome,
-            email: req.body.email,
-            password: encrypted,
-            role_id: 3
-        };
-
-        Users.create(LIBRARIAN_MODEL).then(data => {
-            res.status(200).send({
-                data, 
-                token: generateToken({id: Users.id})
-            });
-        }).catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Algum erro ocorreu ao cadastrar o Bibliotecário."
-            });
-        });  
-    });
-}
-
 exports.login = async (req, res) => {
     const { password } = req.body;
+    const email = req.body.email
     const user = await Users.findOne({
         where: {
-            email: req.body.email
+            email: email
         },
-        attributes: ['id', 'nome', 'sobrenome', 'email', 'password']
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'password'],
+        paranoid: false
     });
     if (!user) {
         return res.status(400).send({
@@ -123,6 +99,9 @@ exports.login = async (req, res) => {
             error: 'Senha Inválida'
         });
     };
+    if(user.isSoftDeleted){
+        await user.restore(); 
+    }
     res.send({
         message: "Login Realizado com sucesso",
         user,
@@ -137,7 +116,8 @@ exports.forgotPassword = async (req, res) => {
         const user = await Users.findOne({
             where: {
                 email: email
-            }
+            },
+            paranoid: false
         });
         if (!user) {
             return res.status(400).send({
@@ -232,10 +212,29 @@ exports.updateById = async (req, res) =>{
     });
 }
 
-exports.logout = async(req, res) => {
-    
+exports.inactiveUser = async(req, res) => {
+    const id = req.params.id;
+    Users.destroy({
+        where: { id: id }
+    }).then(data => {
+        if (data) {
+            res.send({
+                message: "Usuário foi desativado com sucesso!"
+            });
+        } else {
+            res.send({
+                message: `Não possível desativar usuário de id=${id}. Usuário não encontrado!`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: 
+                err.message || `Você não pode desativar usuário de id=${id}`
+        });
+    });
 }
 
-exports.inactiveUser = async(req, res) => {
-
+exports.logout = async(req, res) => {
+    
 }
