@@ -5,8 +5,6 @@ const UserController = require('./src/controllers/UserController');
 const PersonController = require('./src/controllers/PersonController');
 const GenreController = require('./src/controllers/GenreController');
 const BookController = require('./src/controllers/BookController');
-const ImagesController = require('./src/controllers/ImagesController');
-const BookingController = require('./src/controllers/BookingController')
 
 const { tokenSession } = require('./src/middleware/auth');
 const {createUser} = require('./src/middleware/validator');
@@ -37,8 +35,6 @@ router
 router
     .get('/users/:user_id/person', tokenSession, PersonController.findById)
     .post('/users/:user_id/person', tokenSession, PersonController.createPersonalData)
-    .post('/users/upload-image', ImagesController.uploadUserImage)
-    .delete('/users/images/:id', ImagesController.deleteUserImage)
     .put('/users/:user_id/person', tokenSession, PersonController.updateById);
     
 //rotas de gêneros literários

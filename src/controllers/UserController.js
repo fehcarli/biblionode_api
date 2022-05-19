@@ -5,14 +5,14 @@ const crypto = require("crypto");
 const db = require("../models");
 const mailer = require('../services/mailer')
 const Users = db.usuarios;
-const People = db.pessoas;
+const UserInfo = db.info;
 
 exports.findAll = async (req, res) => {
     await Users.findAll({
         order: [['id', 'ASC']],
         include: [{
-            model: People,
-            attributes: ['user_id', 'cpf', 'endereco', 'numeroEndereco', 'matricula', 'unidade'],
+            model: UserInfo,
+            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
         }]
     }).then(data => {
         res.status(200).send({data, usersInSession: req.userId});
@@ -28,8 +28,8 @@ exports.findById = async (req, res) => {
     const id = req.params.id;
     await Users.findByPk(id, {
         include: [{
-            model: People,
-            attributes: ['user_id', 'cpf', 'endereco', 'numeroEndereco', 'matricula', 'unidade'],
+            model: UserInfo,
+            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
         }]
     }).then(data => {
         if(data){
@@ -58,11 +58,9 @@ exports.createUser = async (req, res) => {
         const encrypted = hash;
 
         const USER_MODEL = {
-            nome: req.body.nome,
-            sobrenome: req.body.sobrenome,
             email: req.body.email,
             password: encrypted,
-            role_id: 2
+            role_id: 2,
         };
 
         Users.create(USER_MODEL).then(data => {

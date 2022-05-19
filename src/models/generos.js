@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Generos.init({
-    nomeGenero: DataTypes.STRING,
-    corEtiqueta: DataTypes.STRING
+    nome: DataTypes.STRING,
+    etiqueta: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Generos',

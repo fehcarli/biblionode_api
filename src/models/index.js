@@ -28,15 +28,12 @@ fs
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.usuarios = require("./usuarios")(sequelize, Sequelize);
-db.pessoas = require("./pessoas")(sequelize, Sequelize);
-db.roles = require("./roles")(sequelize, Sequelize);
+db.usuarios = require("./users")(sequelize, Sequelize);
+db.info = require("./userinfos")(sequelize, Sequelize);
+db.permissoes = require("./roles")(sequelize, Sequelize);
 db.generos = require("./generos")(sequelize, Sequelize);
 db.livros = require("./livros")(sequelize, Sequelize);
 db.reservas = require("./reservas")(sequelize, Sequelize);
-db.emprestimos = require("./emprestimos")(sequelize, Sequelize);
-db.userimages = require("./userimages")(sequelize, Sequelize);
-db.bookimages = require("./bookimages")(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {

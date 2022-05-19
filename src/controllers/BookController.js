@@ -6,12 +6,13 @@ const Op = db.Sequelize.Op;
 exports.findAll = async(req, res) => {
     const book = req.params.titulo;
     const condition = book ? { book: { [Op.iLike]: `%${titulo}%`}} : null;
-    Books.findAll({
+    Books.findAndCountAll({
         where: condition,
         include: [{
             model: Genres,
             attributes: ['nomeGenero', 'corEtiqueta']
-        }]
+        }],
+        limit: 10
     }).then(data => {
         res.status(200).send(data);
     }).catch(err => {

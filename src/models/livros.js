@@ -17,12 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   Livros.init({
     titulo: DataTypes.STRING,
     autor: DataTypes.STRING,
-    codLivro: DataTypes.STRING,
-    isbn: DataTypes.STRING,
+    idLivro: DataTypes.STRING,
+    ISBN: DataTypes.STRING,
     editora: DataTypes.STRING,
     edicao: DataTypes.STRING,
     ano: DataTypes.STRING,
-    generosId: DataTypes.INTEGER
+    genre_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Livros',

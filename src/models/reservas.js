@@ -14,9 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Reservas.init({
-    usuarioSolicitante: DataTypes.STRING,
-    livrosReservados: DataTypes.STRING,
-    statusReserva: DataTypes.STRING
+    dataEmprestimo: DataTypes.DATE,
+    dataDevolucao: DataTypes.DATE,
+    statusReserva: DataTypes.STRING,
+    user_id: DataTypes.STRING,
+    book_id: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Reservas',
