@@ -1,14 +1,7 @@
 'use strict';
-
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
-     await queryInterface.createTable('Reservas', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Reservas', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -26,7 +19,7 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {         
           model: 'Users',
           key: 'id'
@@ -34,7 +27,7 @@ module.exports = {
       },
       book_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {         
           model: 'Livros',
           key: 'id'
@@ -50,14 +43,7 @@ module.exports = {
       }
     });
   },
-
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-     await queryInterface.dropTable('Reservas');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Reservas');
   }
 };

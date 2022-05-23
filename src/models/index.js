@@ -28,9 +28,9 @@ fs
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.usuarios = require("./users")(sequelize, Sequelize);
-db.info = require("./userinfos")(sequelize, Sequelize);
-db.permissoes = require("./roles")(sequelize, Sequelize);
+db.usuarios = require("./user")(sequelize, Sequelize);
+db.info = require("./userinfo")(sequelize, Sequelize);
+db.permissoes = require("./role")(sequelize, Sequelize);
 db.generos = require("./generos")(sequelize, Sequelize);
 db.livros = require("./livros")(sequelize, Sequelize);
 db.reservas = require("./reservas")(sequelize, Sequelize);

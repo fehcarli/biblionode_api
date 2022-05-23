@@ -1,14 +1,7 @@
 'use strict';
-
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
-     await queryInterface.createTable('Users', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -19,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       password: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       passwordResetToken: {
         type: Sequelize.STRING
@@ -29,21 +22,11 @@ module.exports = {
       },
       role_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {         // User belongsTo Roles 1:1
           model: 'Roles',
           key: 'id'
         }
-      },
-      info_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {         // User belongsTo Roles 1:1
-          model: 'UserInfos',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
@@ -59,14 +42,7 @@ module.exports = {
       }
     });
   },
-
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-     await queryInterface.dropTable('Users');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Users');
   }
 };

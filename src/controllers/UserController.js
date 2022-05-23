@@ -4,18 +4,21 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const db = require("../models");
 const mailer = require('../services/mailer')
-const Users = db.usuarios;
+const User = db.usuarios;
 const UserInfo = db.info;
 
 exports.findAll = async (req, res) => {
-    await Users.findAll({
+    await User.findAll({
         order: [['id', 'ASC']],
         include: [{
             model: UserInfo,
-            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
+            attributes: ['user_id', 'nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
         }]
     }).then(data => {
-        res.status(200).send({data, usersInSession: req.userId});
+        res.status(200).send({
+            data, 
+            usersInSession: req.userId
+        });
     }).catch(err => {
         res.status(500).send({
             message:
@@ -26,10 +29,10 @@ exports.findAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
     const id = req.params.id;
-    await Users.findByPk(id, {
+    await User.findByPk(id, {
         include: [{
             model: UserInfo,
-            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
+            attributes: ['user_id', 'nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
         }]
     }).then(data => {
         if(data){
@@ -51,7 +54,7 @@ function generateToken(params = {}){
     return jwt.sign(params, process.env.SECRET,{
         expiresIn: 86400,
     }) 
-}
+};
 
 exports.createUser = async (req, res) => {
     await bcrypt.hash(req.body.password, 10).then(hash => {
@@ -61,12 +64,16 @@ exports.createUser = async (req, res) => {
             email: req.body.email,
             password: encrypted,
             role_id: 2,
+            UserInfo: [],
+            include: [{
+                association: UserInfo
+            }]
         };
 
-        Users.create(USER_MODEL).then(data => {
+        User.create(USER_MODEL).then(data => {
             res.status(200).send({
                 data, 
-                token: generateToken({id: Users.id})
+                token: generateToken({id: User.id})
             });
         }).catch(err => {
             res.status(500).send({
@@ -75,16 +82,20 @@ exports.createUser = async (req, res) => {
             });
         });  
     });
-}
+};
 
 exports.login = async (req, res) => {
     const { password } = req.body;
     const email = req.body.email
-    const user = await Users.findOne({
+    const user = await User.findOne({
         where: {
             email: email
         },
-        attributes: ['id', 'nome', 'sobrenome', 'email', 'password'],
+        attributes: ['id', 'email', 'password'],
+        include: [{
+            model: UserInfo,
+            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep']
+        }],
         paranoid: false
     });
     if (!user) {
@@ -105,13 +116,61 @@ exports.login = async (req, res) => {
         user,
         token: generateToken({id: user.id})
     });
-}
+};
+
+exports.findPersonalDataById = async (req, res) => {
+    const id = req.params.id;
+    await User.findByPk(id, {
+        include: { association: UserInfo }
+    }).then(data => {
+        if(data){
+            res.status(200).send(data);
+        } else {
+            res.status(404).send({
+                message: `Não é possível encontrar a Usuário de id=${id}.`
+            });
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Algum erro ocorreu internamente."
+        });
+    });
+};
+
+exports.createPersonalData = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(400).send({ error: 'Usuário não encontrado' });
+    }
+
+    const INFO_MODEL = {
+        user_id: user,
+        nome: req.body.nome,
+        sobrenome: req.body.sobrenome,
+        cpf: req.body.cpf,
+        endereco: req.body.endereco,
+        numero: req.body.numero,
+        cep: req.body.cep
+    };
+
+    Person.create(INFO_MODEL).then(data => {
+        res.status(200).send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Algum erro ocorreu ao cadastrar os Dados Pessoais."
+        });
+    });
+};
 
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     try{
-        const user = await Users.findOne({
+        const user = await User.findOne({
             where: {
                 email: email
             },
@@ -150,13 +209,13 @@ exports.forgotPassword = async (req, res) => {
                 err.message || "Algum erro ocorreu ao recuperar a senha, tente novamente."
         });
     }
-}
+};
 
 exports.resetPassword = async (req, res)=> {
     const {token, email, password} = req.body;
 
     try {
-        const user = await Users.findOne({
+        const user = await User.findOne({
             where: {
                 email: email
             },
@@ -192,10 +251,10 @@ exports.resetPassword = async (req, res)=> {
                 err.message || "Algum erro ocorreu ao resetar a senha, tente novamente."
         });
     }
-}
+};
 
 exports.updateById = async (req, res) =>{
-    await Users.update(req.body, {
+    await User.update(req.body, {
         where: { id: req.params.id }
     }).then(() => {
         res.status(200).send({
@@ -208,11 +267,28 @@ exports.updateById = async (req, res) =>{
                 err.message || "Erro ao atualizar o Usuário com id= " + id
         });
     });
-}
+};
+
+exports.updatePersonalDataById = async (req, res) =>{
+    const id = req.params.user_id
+    await UserInfo.update(req.body, {
+        where: { id: id }
+    }).then(() => {
+        res.status(200).send({
+             message: "Dados Pessoais Atualizados com sucesso."
+        });
+    }).catch(err => {
+        const id = req.params.id;
+        res.status(500).send({
+            message:
+                err.message || "Erro ao atualizar o Usuário com id= " + id
+        });
+    });
+};
 
 exports.inactiveUser = async(req, res) => {
     const id = req.params.id;
-    Users.destroy({
+    User.destroy({
         where: { id: id }
     }).then(data => {
         if (data) {
@@ -231,7 +307,7 @@ exports.inactiveUser = async(req, res) => {
                 err.message || `Você não pode desativar usuário de id=${id}`
         });
     });
-}
+};
 
 exports.logout = async(req, res) => {
     

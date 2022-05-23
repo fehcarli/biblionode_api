@@ -1,7 +1,7 @@
 const { check } = require('express-validator');
 const { validationResult } = require('express-validator');
 const db = require('../models');
-const Users = db.usuarios;
+const User = db.usuarios;
 
 module.exports = {
   
@@ -20,7 +20,7 @@ module.exports = {
             // Custom validation
             // Validate email in use or not
             .custom(async (email = req.body.email) => {
-                const existingUser = await Users.findOne({ 
+                const existingUser = await User.findOne({ 
                         where: {email: email
                     },
                     attributes: ['email'],
