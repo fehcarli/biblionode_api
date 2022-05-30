@@ -16,8 +16,7 @@ exports.findAll = async (req, res) => {
         }]
     }).then(data => {
         res.status(200).send({
-            data, 
-            usersInSession: req.userId
+            data
         });
     }).catch(err => {
         res.status(500).send({
@@ -57,17 +56,15 @@ function generateToken(params = {}){
 };
 
 exports.createUser = async (req, res) => {
+    
     await bcrypt.hash(req.body.password, 10).then(hash => {
         const encrypted = hash;
 
         const USER_MODEL = {
+            username: req.body.username,
             email: req.body.email,
             password: encrypted,
-            role_id: 2,
-            UserInfo: [],
-            include: [{
-                association: UserInfo
-            }]
+            role_id: 2
         };
 
         User.create(USER_MODEL).then(data => {
@@ -118,36 +115,63 @@ exports.login = async (req, res) => {
     });
 };
 
-exports.findPersonalDataById = async (req, res) => {
+exports.updateById = async (req, res) =>{
+    const { username, email, password } = req.body;
     const id = req.params.id;
-    await User.findByPk(id, {
-        include: { association: UserInfo }
-    }).then(data => {
-        if(data){
-            res.status(200).send(data);
-        } else {
-            res.status(404).send({
-                message: `Não é possível encontrar a Usuário de id=${id}.`
-            });
+    const user = await User.findOne({
+        where: {
+            id: id
         }
+    });
+    if (!user) {
+        return res.status(400).send({
+            error: 'Usuário não encontrado na base de dados'
+        })
+    };
+    const updatedPassword = await bcrypt.hash(password, 10).then(hash => {
+        const encrypted = hash;
+        const newPassword = {
+            password: encrypted
+        }
+        user.password = newPassword
+    });
+
+    const updateUser = {
+        username: username,
+        email: email,
+        password: updatedPassword
+    }
+    
+    user.update(updateUser).then(() => {
+        res.status(200).send({
+             message: "Usuário Atualizado com sucesso."
+        });
     }).catch(err => {
+        const id = req.params.id;
         res.status(500).send({
             message:
-                err.message || "Algum erro ocorreu internamente."
+                err.message || "Erro ao atualizar o Usuário com id= " + id
         });
     });
 };
 
-exports.createPersonalData = async (req, res) => {
+exports.createUserInfo = async (req, res) => {
     const { id } = req.params;
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id, {
+        include: [{
+            model: UserInfo,
+            attributes: ['user_id', 'nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
+        }]
+    });
 
     if (!user) {
-      return res.status(400).send({ error: 'Usuário não encontrado' });
+      return res.status(400).send({ 
+          error: 'Usuário não encontrado' 
+        });
     }
 
     const INFO_MODEL = {
-        user_id: user,
+        user_id: id,
         nome: req.body.nome,
         sobrenome: req.body.sobrenome,
         cpf: req.body.cpf,
@@ -156,12 +180,29 @@ exports.createPersonalData = async (req, res) => {
         cep: req.body.cep
     };
 
-    Person.create(INFO_MODEL).then(data => {
+    UserInfo.create(INFO_MODEL).then(data => {
         res.status(200).send(data);
     }).catch(err => {
         res.status(500).send({
             message:
                 err.message || "Algum erro ocorreu ao cadastrar os Dados Pessoais."
+        });
+    });
+};
+
+exports.updateUserInfo = async (req, res) =>{
+    const id = req.params.id;
+    await UserInfo.update(req.body, {
+        where: { id: id}
+    }).then(() => {
+        res.status(200).send({
+             message: "Usuário Atualizado com sucesso."
+        });
+    }).catch(err => {
+        const id = req.params.id;
+        res.status(500).send({
+            message:
+                err.message || "Erro ao atualizar o Usuário com id= " + id
         });
     });
 };
@@ -251,39 +292,6 @@ exports.resetPassword = async (req, res)=> {
                 err.message || "Algum erro ocorreu ao resetar a senha, tente novamente."
         });
     }
-};
-
-exports.updateById = async (req, res) =>{
-    await User.update(req.body, {
-        where: { id: req.params.id }
-    }).then(() => {
-        res.status(200).send({
-             message: "Usuário Atualizado com sucesso."
-        });
-    }).catch(err => {
-        const id = req.params.id;
-        res.status(500).send({
-            message:
-                err.message || "Erro ao atualizar o Usuário com id= " + id
-        });
-    });
-};
-
-exports.updatePersonalDataById = async (req, res) =>{
-    const id = req.params.user_id
-    await UserInfo.update(req.body, {
-        where: { id: id }
-    }).then(() => {
-        res.status(200).send({
-             message: "Dados Pessoais Atualizados com sucesso."
-        });
-    }).catch(err => {
-        const id = req.params.id;
-        res.status(500).send({
-            message:
-                err.message || "Erro ao atualizar o Usuário com id= " + id
-        });
-    });
 };
 
 exports.inactiveUser = async(req, res) => {

@@ -1,0 +1,607 @@
+_type: export
+__export_format: 4
+__export_date: 2022-05-30T03:02:28.930Z
+__export_source: insomnia.desktop.app:v2022.3.0
+resources:
+  - _id: req_f91419322b6c45b090abf322e8bd2c46
+    parentId: fld_5e5ebdf5d14846129af202de774a6abf
+    modified: 1653180471330
+    created: 1653180457844
+    url: http://localhost:4000/api/v1
+    name: swaggerDoc
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1653180457844
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5e5ebdf5d14846129af202de774a6abf
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1653180439342
+    created: 1653180439342
+    name: Swagger
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1653180439342
+    _type: request_group
+  - _id: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    parentId: null
+    modified: 1647299766669
+    created: 1647299766669
+    name: biblionode
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_716d1721a20e450cae2050a1808de3b2
+    parentId: fld_f710b2a8089849509f2ac8876ef1681e
+    modified: 1653878287771
+    created: 1652841594786
+    url: ""
+    name: listGenres
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1652841657206
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_f710b2a8089849509f2ac8876ef1681e
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1653853002656
+    created: 1652838361481
+    name: Genres
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1653009415720
+    _type: request_group
+  - _id: req_849a4ceb60fe45babf220dd1de7730d6
+    parentId: fld_f710b2a8089849509f2ac8876ef1681e
+    modified: 1653878289649
+    created: 1652842075715
+    url: ""
+    name: findGenreByName
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1652841657181
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bee7fb6ca52b4d0d94cbd825cf5e7409
+    parentId: fld_f710b2a8089849509f2ac8876ef1681e
+    modified: 1652841664057
+    created: 1652841657156
+    url: ""
+    name: createGenre
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1652841657156
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b29404949bca4ecfa8ab4b8d1513de85
+    parentId: fld_f710b2a8089849509f2ac8876ef1681e
+    modified: 1652842290044
+    created: 1652842278826
+    url: ""
+    name: updateGenre
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_dfda5bada02f453cad61110900ed9ebc
+    authentication: {}
+    metaSortKey: -1652841594686
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_898a45ce0634451985bc891fe42c8c52
+    parentId: fld_657e36c665b84bb8b8b6dc3b35b6b7d3
+    modified: 1653878293811
+    created: 1652841117005
+    url: ""
+    name: listBooks
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1652840252471
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_657e36c665b84bb8b8b6dc3b35b6b7d3
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1652841503300
+    created: 1652838347433
+    name: Books
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1652838392098
+    _type: request_group
+  - _id: req_311aacbde9534f46b03edd5e7cd756ac
+    parentId: fld_657e36c665b84bb8b8b6dc3b35b6b7d3
+    modified: 1653878294874
+    created: 1652841137963
+    url: ""
+    name: findBookById
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1652840252446
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f0ba5bfeb77a445bba9ea6740d98d92c
+    parentId: fld_657e36c665b84bb8b8b6dc3b35b6b7d3
+    modified: 1653869228941
+    created: 1652840252421
+    url: http://localhost:4000/books
+    name: createBook
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_86cbd5d66ad44d5fa17183070aec9ae6
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4NjQzNzIsImV4cCI6MTY1Mzk1MDc3Mn0.OLH_eS5Zr9tpobrmexxOlZ_eCxFTMrTO3qAn8YMcYU4
+    metaSortKey: -1652840252421
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a114a39b18cf4522ac198f72fd96cf45
+    parentId: fld_657e36c665b84bb8b8b6dc3b35b6b7d3
+    modified: 1652841475335
+    created: 1652841471370
+    url: ""
+    name: updateBook
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_037eda3a12164c30806aced00153b482
+    authentication: {}
+    metaSortKey: -1652840252271
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9e2427da361f4d3d9b943e379167fa31
+    parentId: fld_d3b0174bbbf54b0eb3b19d2c9ff464f7
+    modified: 1653856486192
+    created: 1653856462831
+    url: http://localhost:4000/bookings
+    name: findAllBookings
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1653856462831
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d3b0174bbbf54b0eb3b19d2c9ff464f7
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1653852995513
+    created: 1653852985643
+    name: Bookings
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1652838388270.875
+    _type: request_group
+  - _id: req_cb159d29cd704bfbb3bddd441b5cdab9
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653874406876
+    created: 1652840279705
+    url: http://localhost:4000/users
+    name: listUsers
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4NjQzNzIsImV4cCI6MTY1Mzk1MDc3Mn0.OLH_eS5Zr9tpobrmexxOlZ_eCxFTMrTO3qAn8YMcYU4
+    metaSortKey: -1652840229533
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d7ce8ba6844c444caa7a382902befe34
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1652841546952
+    created: 1652838353299
+    name: Users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1652838376789.5
+    _type: request_group
+  - _id: req_4061f4b6383a4967a0eb98c62fd660d3
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653874494975
+    created: 1652840294395
+    url: http://localhost:4000/user/1
+    name: findUserById
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4NzQwNDQsImV4cCI6MTY1Mzk2MDQ0NH0.c9-2Bt5DaRWg5PST4m-538MRHmjInUDJdPZQenvbUIM
+    metaSortKey: -1652840229508
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a79819fec9bb4cfdb4802babf32bc5ec
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653877322558
+    created: 1652840229483
+    url: http://localhost:4000/user
+    name: createUser
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"username":"fehcarli",
+        	"email":"lipecarli@gmail.com",
+        	"password":"bazinga1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a4e9eb30f15c416695e40502e1ce95ea
+    authentication: {}
+    metaSortKey: -1652840229483
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e67364faeb2f4ad48c1f69c66b7cf629
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653877729979
+    created: 1653873653837
+    url: http://localhost:4000/user/1/info
+    name: createUserInfo
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nome":"Felipe",
+        	"sobrenome":"Carli",
+        	"cpf":"08018746876",
+        	"endereco":"Avenida Manoel Gomes",
+        	"numero":"230",
+        	"cep":"31250-550"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c046e193fe7a4787ad39c2cf72dfdd94
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4NzQwNDQsImV4cCI6MTY1Mzk2MDQ0NH0.c9-2Bt5DaRWg5PST4m-538MRHmjInUDJdPZQenvbUIM
+    metaSortKey: -1652840229451.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_152132d3915a4671ad10917bb0cba9cb
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653879590060
+    created: 1653180017346
+    url: http://localhost:4000/login
+    name: userLogin
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"lipecarli@gmail.com",
+        	"password":"bazinga1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c16760b79d7044aaac8b7f433c999ade
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTMxNzk5OTAsImV4cCI6MTY1MzI2NjM5MH0.vfUldJJXKlaqsdGeG5ZYpk6GGDg4HQ2coKKvdI33h48
+    metaSortKey: -1652840229448.625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_803cc6bb1b3a47e08e0b005945e64abf
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653878019110
+    created: 1653878015415
+    url: ""
+    name: forgotPassword
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_d853ba802829402298cfd67e9e2e8e4d
+    authentication: {}
+    metaSortKey: -1652840229447.0625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_aaa4f3e9b8114a319734677966448bd6
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653878060653
+    created: 1653878049850
+    url: ""
+    name: resetPassword
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_6e1e9b5efb6549f29d81d9a24954ba35
+    authentication: {}
+    metaSortKey: -1652840229446.2812
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_83e6c50c8627423283698d52bca13176
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653877751758
+    created: 1652840333393
+    url: http://localhost:4000/user/1
+    name: updateUser
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"username":"fehcarli",
+        	"email":"lipecarli@gmail.com",
+        	"password":"bazinga1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f4c57175201a4f1ba3bdfe761444fda3
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4NzQwNDQsImV4cCI6MTY1Mzk2MDQ0NH0.c9-2Bt5DaRWg5PST4m-538MRHmjInUDJdPZQenvbUIM
+    metaSortKey: -1652840229445.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1766a58ee3384d56b3efc380e1b4c6b8
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653877741952
+    created: 1653875504289
+    url: http://localhost:4000/user/1/info
+    name: updateUserInfo
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nome":"Felipe",
+        	"sobrenome":"Carli",
+        	"cpf":"08018748667",
+        	"endereco":"Avenida Manoel Gomes",
+        	"numero":"219",
+        	"cep":"31250-550"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_2d6f2c01f6a9403fa6070cc1125d5dbe
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTM4NzQwNDQsImV4cCI6MTY1Mzk2MDQ0NH0.c9-2Bt5DaRWg5PST4m-538MRHmjInUDJdPZQenvbUIM
+    metaSortKey: -1652840229364.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_36b963eddb8d4a7bbbf256a37ee23c76
+    parentId: fld_d7ce8ba6844c444caa7a382902befe34
+    modified: 1653876651989
+    created: 1652840357009
+    url: http://localhost:4000/user/1/inactive-user
+    name: inactiveUser
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1652840229283
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_d31de664ce7cfff501090328997aad902e4e7373
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1647299766674
+    created: 1647299766674
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1647299766674
+    _type: environment
+  - _id: jar_d31de664ce7cfff501090328997aad902e4e7373
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1647299766675
+    created: 1647299766675
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_9935ffbdc26b4c69821ed08964692bee
+    parentId: wrk_a8d4984d2dbe4c37a0ac4a21e7ca444d
+    modified: 1647299766671
+    created: 1647299766671
+    fileName: biblionode
+    contents: ""
+    contentType: yaml
+    _type: api_spec

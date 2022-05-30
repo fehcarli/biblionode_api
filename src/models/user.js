@@ -11,12 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasOne(models.UserInfo, {
+      User.hasOne(models.UserInfo, {
         foreignKey: 'user_id',
+      });
+      User.belongsToMany(models.Reservas, {
+        through: 'Reservas',
+        foreignKey: 'user_id',
+        as: 'users'
       })
     }
   }
   User.init({
+    username: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     passwordResetToken: DataTypes.STRING,

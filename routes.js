@@ -4,6 +4,7 @@ const router = express.Router();
 const UserController = require('./src/controllers/UserController');
 const GenreController = require('./src/controllers/GenreController');
 const BookController = require('./src/controllers/BookController');
+const BookingController = require('./src/controllers/BookingController');
 
 const { tokenSession } = require('./src/middleware/auth');
 const { createUser } = require('./src/middleware/validator');
@@ -21,16 +22,16 @@ router
 //rotas de usuario
 router
     .get('/users', tokenSession, UserController.findAll)
-    .post('/user', createUser.validateEmail, createUser.handler, UserController.createUser)
     .get('/user/:id', tokenSession, UserController.findById)
-    .put('/user/:id', tokenSession, UserController.updateById)
-    .get('/user/:id/info', tokenSession, UserController.findPersonalDataById)
-    .post('/user/:id/info', tokenSession, UserController.createPersonalData)
-    .put('/user/:user_id/info', tokenSession, UserController.updatePersonalDataById)
-    .post('/login', UserController.login)   
+    .get('/user/:id', tokenSession, UserController.findById)
+    .post('/user', createUser.validateEmail, createUser.handler, UserController.createUser)
+    .post('/user/:id/info', tokenSession, UserController.createUserInfo)
+    .post('/login', UserController.login)
     .post('/forgot-password', UserController.forgotPassword)
     .post('/reset-password', UserController.resetPassword)
     .post('/logout', tokenSession, UserController.logout)
+    .put('/user/:id', tokenSession, UserController.updateById)
+    .put('/user/:id/info', tokenSession, UserController.updateUserInfo)
     .delete('/user/:id/inactive-user', tokenSession, UserController.inactiveUser);
     
 //rotas de gêneros literários
@@ -50,6 +51,6 @@ router
 
 //rotas de reservas e emprestimos a serem definidas
 router
-    .get('/bookings')
+    .get('/bookings', BookingController.findAllBookings);
 
 module.exports = router;
