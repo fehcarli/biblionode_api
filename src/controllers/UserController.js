@@ -3,21 +3,21 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const db = require("../models");
-const mailer = require('../services/mailer')
+const mailer = require('../services/mailer');
+const { token } = require('morgan');
 const User = db.usuarios;
 const UserInfo = db.info;
 
 exports.findAll = async (req, res) => {
-    await User.findAll({
+    await User.findAndCountAll({
         order: [['id', 'ASC']],
         include: [{
             model: UserInfo,
-            attributes: ['user_id', 'nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
-        }]
+            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
+        }],
+        limit: 10
     }).then(data => {
-        res.status(200).send({
-            data
-        });
+        res.status(200).send(data);
     }).catch(err => {
         res.status(500).send({
             message:
@@ -31,7 +31,7 @@ exports.findById = async (req, res) => {
     await User.findByPk(id, {
         include: [{
             model: UserInfo,
-            attributes: ['user_id', 'nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
+            attributes: ['nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
         }]
     }).then(data => {
         if(data){
@@ -50,25 +50,23 @@ exports.findById = async (req, res) => {
 };
 
 function generateToken(params = {}){
-    return jwt.sign(params, process.env.SECRET,{
+    jwt.sign(params, process.env.SECRET,{
         expiresIn: 86400,
-    }) 
+    })
+    return res.json({ auth: true, token: token }); 
 };
 
 exports.createUser = async (req, res) => {
-    
     await bcrypt.hash(req.body.password, 10).then(hash => {
         const encrypted = hash;
-
         const USER_MODEL = {
             username: req.body.username,
             email: req.body.email,
             password: encrypted,
             role_id: 2
         };
-
         User.create(USER_MODEL).then(data => {
-            res.status(200).send({
+            res.status(201).send({
                 data, 
                 token: generateToken({id: User.id})
             });
@@ -135,14 +133,12 @@ exports.updateById = async (req, res) =>{
         }
         user.password = newPassword
     });
-
-    const updateUser = {
+    const USER_MODEL_UPDATED = {
         username: username,
         email: email,
         password: updatedPassword
     }
-    
-    user.update(updateUser).then(() => {
+    user.update(USER_MODEL_UPDATED).then(() => {
         res.status(200).send({
              message: "Usuário Atualizado com sucesso."
         });
@@ -157,19 +153,18 @@ exports.updateById = async (req, res) =>{
 
 exports.createUserInfo = async (req, res) => {
     const { id } = req.params;
-    const user = await User.findByPk(id, {
+    const user = await User.findByPk({
+        where: { id: id},
         include: [{
             model: UserInfo,
             attributes: ['user_id', 'nome', 'sobrenome', 'cpf', 'endereco', 'numero', 'cep'],
         }]
     });
-
     if (!user) {
       return res.status(400).send({ 
           error: 'Usuário não encontrado' 
         });
     }
-
     const INFO_MODEL = {
         user_id: id,
         nome: req.body.nome,
@@ -179,7 +174,6 @@ exports.createUserInfo = async (req, res) => {
         numero: req.body.numero,
         cep: req.body.cep
     };
-
     UserInfo.create(INFO_MODEL).then(data => {
         res.status(200).send(data);
     }).catch(err => {
@@ -209,8 +203,7 @@ exports.updateUserInfo = async (req, res) =>{
 
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
-
-    try{
+    try {
         const user = await User.findOne({
             where: {
                 email: email
@@ -225,12 +218,10 @@ exports.forgotPassword = async (req, res) => {
         const token = crypto.randomBytes(20).toString('hex');
         const expiredDate = new Date();
         expiredDate.setHours(expiredDate.getHours() + 1);
-
         await user.update({ 
             passwordResetToken: token,
             passwordResetExpires: expiredDate
         })
-
         mailer.sendMail({
             to: email,
             from: 'reset-mail@biblionode.com.br',
@@ -318,5 +309,5 @@ exports.inactiveUser = async(req, res) => {
 };
 
 exports.logout = async(req, res) => {
-    
+    res.json({ auth: false, token: null });
 }

@@ -12,19 +12,18 @@ const { createUser } = require('./src/middleware/validator');
 //rota para home
 router
     .get('/api', (req, res) => {
-    res.status(200).json({
-       success: 'true',
-       message: 'Seja bem-vindo a API Biblionode, para consultar sobre cada endpoint acesse /api/v1',
-       version: '1.0.0',
+        res.status(200).json({
+            success: 'true',
+            message: 'Seja bem-vindo a API Biblionode, para consultar sobre cada endpoint acesse /api/v1',
+            version: '1.0.0',
+        });
     });
-});
 
-//rotas de usuario
 router
     .get('/users', tokenSession, UserController.findAll)
     .get('/user/:id', tokenSession, UserController.findById)
     .get('/user/:id', tokenSession, UserController.findById)
-    .post('/user', createUser.validateEmail, createUser.handler, UserController.createUser)
+    .post('/register', createUser.validateEmail, createUser.handler, UserController.createUser)
     .post('/user/:id/info', tokenSession, UserController.createUserInfo)
     .post('/login', UserController.login)
     .post('/forgot-password', UserController.forgotPassword)
