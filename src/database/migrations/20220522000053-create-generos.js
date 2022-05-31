@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      tipo: {
+      tipoGenero: {
         type: Sequelize.STRING
       },
       etiqueta: {

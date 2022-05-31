@@ -1,8 +1,6 @@
-const fs = require("fs");
 const db = require('../models');
 const Books = db.livros;
 const Genres = db.generos;
-const Images = db.images;
 const Op = db.Sequelize.Op;
 
 exports.findAll = async(req, res) => {
@@ -86,43 +84,6 @@ exports.updateById = async(req, res) => {
         });
     });
 }
-
-exports.uploadFiles = async (req, res) => {
-    const id = req.params.id;
-    const book = Books.findOne({
-        where: id,
-        include: [{
-            model: Images,
-            attributes: ['', '', '']
-        }]
-    })
-    if(!book) {
-        return res.status(400).send({ 
-            error: 'Livro não encontrado' 
-        });
-    }
-    try {
-        if (req.file == undefined) {
-            return res.send('Você precisa selecionar um arquivo');
-        }
-        Images.create({
-            type: req.file.mimetype,
-            name: req.file.originalname,
-            data: fs.readFileSync(
-            __basedir + "/resources/static/assets/uploads/" + req.file.filename
-            ),
-        }).then((image) => {
-            fs.writeFileSync(
-            __basedir + "/resources/static/assets/tmp/" + image.name,
-            image.data
-            );
-            return res.send('Arquivo foi enviado');
-        });
-    } catch (error) {
-      console.log(error);
-      return res.send('Erro ao tentar enviar imagens: ${error}');
-    }
-};
 
 exports.deleteById = (req, res) => {
     const id = req.params.id;

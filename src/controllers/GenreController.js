@@ -3,9 +3,11 @@ const Genres = db.generos;
 const Op = db.Sequelize.Op;
 
 exports.findAll = async (req, res) => {
-    const genre = req.params.nomeGenero;
-    const condition = genre ? { genre: { [Op.iLike]: `%${nomeGenero}%`}} : null;
-    Genres.findAll({where: condition}).then(data => {
+    const genre = req.params.tipoGenero;
+    const condition = genre ? { genre: { [Op.iLike]: `%${tipoGenero}%`}} : null;
+    Genres.findAll({
+        where: condition
+    }).then(data => {
         res.status(200).send(data);
     }).catch(err => {
         res.status(500).send({
@@ -34,14 +36,14 @@ exports.findById = async (req, res) => {
 };
 
 exports.createGenre = async (req, res) => {
-    if(!req.body.nomeGenero && !req.body.corEtiqueta){
+    if(!req.body.tipoGenero && !req.body.etiqueta){
         res.status(400).send({
             message: "Conteúdo não pode ficar vazio para cadastro."
         });
     }
     const GENRE_MODEL = {
-        nomeGenero: req.body.nomeGenero,
-        corEtiqueta: req.body.corEtiqueta
+        tipoGenero: req.body.tipoGenero,
+        etiqueta: req.body.etiqueta
     };
     Genres.create(GENRE_MODEL).then(data => {
         res.status(200).send(data);
