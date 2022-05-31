@@ -28,7 +28,6 @@ router
     .post('/login', UserController.login)
     .post('/forgot-password', UserController.forgotPassword)
     .post('/reset-password', UserController.resetPassword)
-    .post('/logout', tokenSession, UserController.logout)
     .put('/user/:id', tokenSession, UserController.updateById)
     .put('/user/:id/info', tokenSession, UserController.updateUserInfo)
     .delete('/user/:id/inactive-user', tokenSession, UserController.inactiveUser);

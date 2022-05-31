@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const db = require("../models");
 const mailer = require('../services/mailer');
-const { token } = require('morgan');
 const User = db.usuarios;
 const UserInfo = db.info;
 
@@ -50,10 +49,9 @@ exports.findById = async (req, res) => {
 };
 
 function generateToken(params = {}){
-    jwt.sign(params, process.env.SECRET,{
+    return jwt.sign(params, process.env.SECRET,{
         expiresIn: 86400,
-    })
-    return res.json({ auth: true, token: token }); 
+    });
 };
 
 exports.createUser = async (req, res) => {
@@ -307,7 +305,3 @@ exports.inactiveUser = async(req, res) => {
         });
     });
 };
-
-exports.logout = async(req, res) => {
-    res.json({ auth: false, token: null });
-}
