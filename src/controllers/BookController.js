@@ -8,6 +8,7 @@ exports.findAll = async(req, res) => {
     const condition = book ? { book: { [Op.iLike]: `%${titulo}%`}} : null;
     Books.findAndCountAll({
         where: condition,
+        order: ['ASC'],
         include: [{
             model: Genres,
             attributes: ['nomeGenero', 'corEtiqueta']
@@ -55,7 +56,7 @@ exports.createBook = async(req, res) => {
         numPaginas: req.body.numPaginas,
         editora: req.body.editora,
         edicao: req.body.edicao,
-        ano: req.body.ano,
+        ano: req.body.ano
     };
     
     Books.create(BOOK_MODEL).then(data => {
