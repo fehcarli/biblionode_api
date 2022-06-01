@@ -11,7 +11,7 @@ module.exports = {
       dataEmprestimo: {
         type: Sequelize.DATE
       },
-      dataDevolução: {
+      dataDevolucao: {
         type: Sequelize.DATE
       },
       statusReserva: {

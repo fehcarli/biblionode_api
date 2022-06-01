@@ -34,7 +34,8 @@ db.permissoes = require("./role")(sequelize, Sequelize);
 db.generos = require("./generos")(sequelize, Sequelize);
 db.livros = require("./livros")(sequelize, Sequelize);
 db.reservas = require("./reservas")(sequelize, Sequelize);
-db.images = require("./bookimages")(sequelize, Sequelize);
+db.images = require("./images")(sequelize, Sequelize);
+db.filiadas = require("./filiada")(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {

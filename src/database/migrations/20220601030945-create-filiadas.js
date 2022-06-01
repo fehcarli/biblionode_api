@@ -1,27 +1,27 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('BookImages', {
+    await queryInterface.createTable('Filiadas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      type: {
+      nome: {
         type: Sequelize.STRING
       },
-      name: {
+      matricula: {
         type: Sequelize.STRING
       },
-      file: {
-        type: Sequelize.BLOB
+      unidade: {
+        type: Sequelize.STRING
       },
-      book_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {         // User belongsTo Roles 1:1
-          model: 'Livros',
+          model: 'Users',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -38,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('BookImages');
+    await queryInterface.dropTable('Filiadas');
   }
 };

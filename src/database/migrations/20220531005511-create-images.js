@@ -1,44 +1,41 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Livros', {
+    await queryInterface.createTable('Images', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codLivro: {
+      type: {
         type: Sequelize.STRING
       },
-      titulo: {
+      name: {
         type: Sequelize.STRING
       },
-      autor: {
-        type: Sequelize.STRING
+      file: {
+        type: Sequelize.BLOB
       },
-      ISBN: {
-        type: Sequelize.STRING
-      },
-      editora: {
-        type: Sequelize.STRING
-      },
-      edicao: {
-        type: Sequelize.STRING
-      },
-      ano: {
-        type: Sequelize.STRING
-      },
-      numPaginas: {
-        type: Sequelize.STRING
-      },
-      genre_id: {
+      book_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {         
-          model: 'Generos',
+        references: {         // User belongsTo Roles 1:1
+          model: 'Livros',
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {         // User belongsTo Roles 1:1
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
@@ -51,6 +48,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Livros');
+    await queryInterface.dropTable('Images');
   }
 };

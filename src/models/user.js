@@ -14,10 +14,16 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.UserInfo, {
         foreignKey: 'user_id',
       });
+      User.hasOne(models.Images, {
+        foreignKey: 'user_id',
+      });
+      User.hasOne(models.Filiadas, {
+        foreignKey: 'user_id',
+      });
       User.belongsToMany(models.Reservas, {
         through: 'Reservas',
         foreignKey: 'user_id',
-        as: 'users'
+        as: 'user'
       })
     }
   }
