@@ -26,6 +26,9 @@ module.exports = {
       ano: {
         type: Sequelize.STRING
       },
+      numPaginas: {
+        type: Sequelize.STRING
+      },
       genre_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

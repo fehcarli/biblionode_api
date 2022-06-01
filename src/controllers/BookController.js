@@ -11,7 +11,7 @@ exports.findAll = async(req, res) => {
         order: ['ASC'],
         include: [{
             model: Genres,
-            attributes: ['nomeGenero', 'corEtiqueta']
+            attributes: ['tipoGenero', 'etiqueta']
         }],
         limit: 10
     }).then(data => {
@@ -29,7 +29,7 @@ exports.findById = async(req, res) => {
     Books.findByPk(id, {
         include: [{
           model: Genres,
-          through: { attributes: ['nomeGenero', 'corEtiqueta'] }
+          through: { attributes: ['tipoGenero', 'etiqueta'] }
         }]
     }).then(data =>{
         if(data){
@@ -51,12 +51,13 @@ exports.createBook = async(req, res) => {
     const BOOK_MODEL = {
         titulo: req.body.titulo,
         autor: req.body.autor,
-        codLivro: req.body.codLivro,
-        isbn: req.body.isbn,
-        numPaginas: req.body.numPaginas,
+        idLivro: req.body.codLivro,
+        ISBN: req.body.ISBN,
         editora: req.body.editora,
         edicao: req.body.edicao,
-        ano: req.body.ano
+        ano: req.body.ano,
+        numPaginas: req.body.numPaginas,
+        genre_id: req.body.genre_id
     };
     
     Books.create(BOOK_MODEL).then(data => {
@@ -90,11 +91,10 @@ exports.deleteById = (req, res) => {
     const id = req.params.id;
     Books.destroy({
         where: { id: id }
-    })
-    .then(num => {
+    }).then(num => {
         if (num == 1) {
             res.send({
-            message: "Livro foi deletado com sucesso!"
+            message: "Livro foi removido com sucesso!"
             });
         } else {
             res.send({

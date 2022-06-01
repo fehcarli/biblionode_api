@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     editora: DataTypes.STRING,
     edicao: DataTypes.STRING,
     ano: DataTypes.STRING,
+    numPaginas: DataTypes.STRING,
     genre_id: DataTypes.INTEGER
   }, {
     sequelize,
